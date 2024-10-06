@@ -1,0 +1,5 @@
+Aplicatie ce te ajuta sa ingrijesti plantele.
+
+Fiecare user isi introduce plantele pe care le are(le poate adauga si cate o poza) si introduce detalii despre periodicitatea udarii lor. Aplicatia trimite remindere atunci cand este cazul sa uzi o planta.
+
+Cateva idei de ecrane in aplicatie ar fi: pagina de logare, pagina cu o lista cu toate plantele userului, pagina cu fiecare planta si detalii si un calendar in care sa apara marcate datele in care trebuie sa uzi.
