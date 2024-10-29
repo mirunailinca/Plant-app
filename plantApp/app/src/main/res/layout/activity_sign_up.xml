@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SignUpActivity"
+    android:background="@color/champagne_pink">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/twSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign-up"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_green"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/twFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="First name:" />
+
+        <EditText
+            android:id="@+id/etFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/twSecondName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Second name:" />
+
+        <EditText
+            android:id="@+id/etSecondName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/twEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email:" />
+
+        <EditText
+            android:id="@+id/edEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/twPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Password:" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/twGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gender:"
+            android:paddingTop="10dp" />
+
+        <Spinner
+            android:id="@+id/spnGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/twBirthDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Birth date:"
+            android:paddingTop="10dp" />
+
+        <DatePicker
+            android:id="@+id/date_picker_birth_date"
+            android:layout_width="364dp"
+            android:layout_height="224dp"
+            android:datePickerMode="spinner" />
+
+
+        <RadioGroup
+            android:id="@+id/rgAccord"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <RadioButton
+                android:id="@+id/rbAccept"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agree to Terms and Conditions" />
+
+            <RadioButton
+                android:id="@+id/rbDecline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Disagree to Terms and Conditions"
+                android:checked="true"/>
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnSignUpSubmit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign-Up"
+            android:backgroundTint="@color/dark_green"
+            android:textColor="@color/sage_green"/>
+    </LinearLayout>
+</ScrollView>

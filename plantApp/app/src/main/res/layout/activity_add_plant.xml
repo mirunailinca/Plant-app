@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal"
+    android:background="@color/champagne_pink">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add a new plant to your collection"
+        android:paddingBottom="24dp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/dark_green"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/etPlantName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Plant name" />
+
+    <EditText
+        android:id="@+id/etPlantSpecies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Plant species" />
+
+    <EditText
+        android:id="@+id/etWateringFrequency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Watering frequency(days)" />
+
+    <EditText
+        android:id="@+id/etLastWateredDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Last watered date(days)" />
+
+    <Button
+        android:id="@+id/savePlantButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save plant"
+        android:padding="12dp"
+        android:backgroundTint="@color/dark_green"
+        android:textColor="@color/sage_green"
+        android:gravity="center" />
+</LinearLayout>

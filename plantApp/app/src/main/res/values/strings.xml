@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">plantApp</string>
+
+    <string-array name="gender_array">
+        <item>Masc</item>
+        <item>Fem</item>
+        <item>Don`t say</item>
+    </string-array>
+</resources>
