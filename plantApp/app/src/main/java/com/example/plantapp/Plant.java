@@ -1,6 +1,8 @@
 package com.example.plantapp;
 
-public class Plant {
+import java.io.Serializable;
+
+public class Plant implements Serializable {
 
     private String name;
     private String species;
@@ -8,10 +10,9 @@ public class Plant {
     private int wateringFrequency;
     private String lastWateredDate;
 
-    public Plant(String name, String species, String imageUrl, int wateringFrequency, String lastWateredDate) {
+    public Plant(String name, String species, int wateringFrequency, String lastWateredDate) {
         this.name = name;
         this.species = species;
-        this.imageUrl = imageUrl;
         this.wateringFrequency = wateringFrequency;
         this.lastWateredDate = lastWateredDate;
     }
