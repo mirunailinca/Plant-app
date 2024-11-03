@@ -1,6 +1,7 @@
 package com.example.plantapp;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +38,16 @@ public class PlantAdapter extends ArrayAdapter<Plant> {
 
         tvPlantName.setText(plant.getName());
         tvPlantSpecies.setText(plant.getSpecies());
-        tvWateringFrequency.setText(plant.getWateringFrequency());
+        tvWateringFrequency.setText(String.valueOf(plant.getWateringFrequency()));
         tvLastWateredDate.setText(plant.getLastWateredDate());
+
+        if(Integer.parseInt(plant.getLastWateredDate()) > plant.getWateringFrequency()){
+            tvLastWateredDate.setTextColor(Color.RED);
+        }
+        else{
+            tvLastWateredDate.setTextColor(Color.GREEN);
+        }
+
 
         return view;
     }

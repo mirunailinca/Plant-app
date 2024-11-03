@@ -20,6 +20,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +36,35 @@ public class MainPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_page);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
+
+        fabAdd.setOnClickListener(v -> {
+            Intent intent =new Intent(getApplicationContext(),AddPlantActivity.class);
+            launcher.launch(intent);
+        });
+
+        lvPlants = findViewById(R.id.lvPlants);
+
+        launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result ->{
+            if(result.getResultCode() == RESULT_OK){
+
+                Intent intent = result.getData();
+                Plant plant = (Plant) intent.getSerializableExtra("plantFromIntent");
+                if(plant!=null){
+                    plants.add(plant);
+                }
+                PlantAdapter adapter = new PlantAdapter(getApplicationContext(),R.layout.plant_view,plants,getLayoutInflater());
+                lvPlants.setAdapter(adapter);
+
+                Toast.makeText(this, plants.toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -52,26 +79,8 @@ public class MainPageActivity extends AppCompatActivity {
 
         if (id == R.id.action_add_plant) {
             Intent intent = new Intent(MainPageActivity.this, AddPlantActivity.class);
-            startActivity(intent);
+            launcher.launch(intent);
             Toast.makeText(this, "Add plant", Toast.LENGTH_SHORT).show();
-
-            lvPlants = findViewById(R.id.lvPlants);
-
-            launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result ->{
-                if(result.getResultCode() == RESULT_OK){
-
-                    Intent intent2 = result.getData();
-                    Plant plant = (Plant) intent2.getSerializableExtra("plantFromIntent");
-                    if(plant!=null){
-                        plants.add(plant);
-                    }
-                    PlantAdapter adapter = new PlantAdapter(getApplicationContext(),R.layout.plant_view,null,getLayoutInflater());
-                    lvPlants.setAdapter(adapter);
-
-                    Toast.makeText(this, plants.toString(),Toast.LENGTH_SHORT).show();
-                }
-            });
-
 
             return true;
         } else if (id == R.id.action_calendar) {
