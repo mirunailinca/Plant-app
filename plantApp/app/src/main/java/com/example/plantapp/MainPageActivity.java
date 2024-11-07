@@ -1,6 +1,7 @@
 package com.example.plantapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,10 +29,10 @@ import java.util.List;
 
 public class MainPageActivity extends AppCompatActivity {
 
-    ListView lvPlants;
+    private ListView lvPlants;
     List<Plant> plants = new ArrayList<>();
     ActivityResultLauncher<Intent> launcher;
-
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +52,15 @@ public class MainPageActivity extends AppCompatActivity {
 
         lvPlants = findViewById(R.id.lvPlants);
 
+        lvPlants.setOnItemClickListener((adapterView, view, position,l) -> {
+            this.position = position;
+            Intent intent = new Intent(getApplicationContext(),com.example.plantapp.AddPlantActivity.class);
+            intent.putExtra("edit",plants.get(position));
+            launcher.launch(intent);
+        });
+
         launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),result ->{
-            if(result.getResultCode() == RESULT_OK){
+            if(result.getData().hasExtra("plantFromIntent")){
 
                 Intent intent = result.getData();
                 Plant plant = (Plant) intent.getSerializableExtra("plantFromIntent");
@@ -64,7 +72,29 @@ public class MainPageActivity extends AppCompatActivity {
 
                 Toast.makeText(this, plants.toString(),Toast.LENGTH_SHORT).show();
             }
+            else if(result.getData().hasExtra("edit")){
+                Intent intent = result.getData();
+                Plant editedPlant = (Plant) intent.getSerializableExtra("edit");
+
+                if(editedPlant != null){
+                    Plant plant = plants.get(position);
+
+                    plant.setName(editedPlant.getName());
+                    plant.setSpecies(editedPlant.getSpecies());
+                    plant.setWateringFrequency(editedPlant.getWateringFrequency());
+                    plant.setLastWateredDate(editedPlant.getLastWateredDate());
+
+                    PlantAdapter adapter = (PlantAdapter) lvPlants.getAdapter();
+                    adapter.notifyDataSetChanged();
+                }
+            }
         });
+
+        SharedPreferences sharedPreferences = getSharedPreferences("local",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token","Token1234");
+        editor.apply();
+
     }
 
 

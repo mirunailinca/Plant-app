@@ -1,9 +1,12 @@
 package com.example.plantapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SharedMemory;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +18,7 @@ import java.text.ParseException;
 
 public class AddPlantActivity extends AppCompatActivity {
 
+    private boolean isEditing = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,22 @@ public class AddPlantActivity extends AppCompatActivity {
 
         Button submitButton = findViewById(R.id.savePlantButton);
 
+        Intent editIntent = getIntent();
+        if(editIntent.hasExtra("edit")){
+            isEditing = true;
+            Plant plant = (Plant) editIntent.getSerializableExtra("edit");
+
+            editTextPlantName.setText(plant.getName());
+            editTextPlantSpecies.setText(plant.getSpecies());
+            editTextWateringFrequency.setText(String.valueOf(plant.getWateringFrequency()));
+            editTextLastWateredDate.setText(String.valueOf(plant.getLastWateredDate()));
+
+        }
+
+        SharedPreferences sharedPreferences = getSharedPreferences("local",MODE_PRIVATE);
+        String token = sharedPreferences.getString("token","Valoare default");
+        Toast.makeText(this,token,Toast.LENGTH_SHORT).show();
+
         submitButton.setOnClickListener(v->{
             String name = editTextPlantName.getText().toString();
             String species = editTextPlantSpecies.getText().toString();
@@ -43,7 +63,15 @@ public class AddPlantActivity extends AppCompatActivity {
             Plant plant = new Plant(name,species,wateringFreq,lastWatered);
 
             Intent intent = getIntent();
-            intent.putExtra("plantFromIntent",plant);
+
+            if(isEditing){
+                intent.putExtra("edit",plant);
+                isEditing=false;
+            }
+            else{
+                intent.putExtra("plantFromIntent",plant);
+            }
+
             setResult(RESULT_OK,intent);
             finish();
         });

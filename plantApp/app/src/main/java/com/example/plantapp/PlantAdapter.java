@@ -28,6 +28,7 @@ public class PlantAdapter extends ArrayAdapter<Plant> {
     }
 
     @NonNull
+    @Override
     public View getView(int position, View convertView, ViewGroup parent){
         View view = inflater.inflate(layoutId,parent,false);
         Plant plant = plantList.get(position);
