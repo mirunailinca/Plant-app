@@ -3,9 +3,11 @@ package com.example.plantapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 //import android.widget.Toolbar;
@@ -29,6 +31,7 @@ import java.util.List;
 
 public class MainPageActivity extends AppCompatActivity {
 
+    private static final String jsonUrl = "https://www.jsonkeeper.com/b/SCH5";
     private ListView lvPlants;
     List<Plant> plants = new ArrayList<>();
     ActivityResultLauncher<Intent> launcher;
@@ -95,6 +98,40 @@ public class MainPageActivity extends AppCompatActivity {
         editor.putString("token","Token1234");
         editor.apply();
 
+
+
+
+        //server
+        initComponente();
+        plants.add(new Plant("ZZ plant","Verde",8,"4"));
+        incarcarePlante();
+
+    }
+
+    private void incarcarePlante(){
+        Thread thread = new Thread(){
+            @Override
+            public void run() {
+                HttpsManager manager = new HttpsManager(jsonUrl);
+                String json = manager.procesare();
+                new Handler(getMainLooper()).post(()->{
+                    getJsonFromHttps(json);
+                });
+            }
+        };
+        thread.start();
+    }
+
+    private void getJsonFromHttps(String json){
+        plants.addAll(PlantaParser.parsareJson(json));
+        ArrayAdapter<Plant> adapter = (ArrayAdapter<Plant>) lvPlants.getAdapter();
+        adapter.notifyDataSetChanged();
+    }
+
+    private void initComponente() {
+        lvPlants = findViewById(R.id.lvPlants);
+        ArrayAdapter<Plant> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, plants);
+        lvPlants.setAdapter(adapter);
     }
 
 
