@@ -32,6 +32,7 @@ public class PlantAdapter extends ArrayAdapter<Plant> {
     public View getView(int position, View convertView, ViewGroup parent){
         View view = inflater.inflate(layoutId,parent,false);
         Plant plant = plantList.get(position);
+
         TextView tvPlantName = view.findViewById(R.id.tvPlantName);
         TextView tvPlantSpecies = view.findViewById(R.id.tvPlantSpecies);
         TextView tvWateringFrequency = view.findViewById(R.id.tvWateringFrequency);

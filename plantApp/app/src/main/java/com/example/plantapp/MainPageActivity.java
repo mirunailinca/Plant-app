@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,7 +32,7 @@ import java.util.List;
 
 public class MainPageActivity extends AppCompatActivity {
 
-    private static final String jsonUrl = "https://www.jsonkeeper.com/b/SCH5";
+    private static final String jsonUrl = "https://www.jsonkeeper.com/b/6ZLW";
     private ListView lvPlants;
     List<Plant> plants = new ArrayList<>();
     ActivityResultLauncher<Intent> launcher;
@@ -70,8 +71,11 @@ public class MainPageActivity extends AppCompatActivity {
                 if(plant!=null){
                     plants.add(plant);
                 }
-                PlantAdapter adapter = new PlantAdapter(getApplicationContext(),R.layout.plant_view,plants,getLayoutInflater());
-                lvPlants.setAdapter(adapter);
+//                PlantAdapter adapter = new PlantAdapter(getApplicationContext(),R.layout.plant_view,plants,getLayoutInflater());
+//                lvPlants.setAdapter(adapter);
+
+                ((PlantAdapter) lvPlants.getAdapter()).notifyDataSetChanged();
+
 
                 Toast.makeText(this, plants.toString(),Toast.LENGTH_SHORT).show();
             }
@@ -123,14 +127,24 @@ public class MainPageActivity extends AppCompatActivity {
     }
 
     private void getJsonFromHttps(String json){
+//        plants.addAll(PlantaParser.parsareJson(json));
+//        ArrayAdapter<Plant> adapter = (ArrayAdapter<Plant>) lvPlants.getAdapter();
+//        adapter.notifyDataSetChanged();
+
+        if (json == null || json.isEmpty()) {
+            Log.e("JSON_ERROR", "Received empty or null JSON");
+            Toast.makeText(this, "Error: No data received from server", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         plants.addAll(PlantaParser.parsareJson(json));
-        ArrayAdapter<Plant> adapter = (ArrayAdapter<Plant>) lvPlants.getAdapter();
-        adapter.notifyDataSetChanged();
+        ((ArrayAdapter<Plant>) lvPlants.getAdapter()).notifyDataSetChanged();
     }
 
     private void initComponente() {
         lvPlants = findViewById(R.id.lvPlants);
-        ArrayAdapter<Plant> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1, plants);
+        PlantAdapter adapter = new PlantAdapter(getApplicationContext(), R.layout.plant_view, plants, getLayoutInflater());
         lvPlants.setAdapter(adapter);
     }
 

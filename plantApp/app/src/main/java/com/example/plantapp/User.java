@@ -2,7 +2,7 @@ package com.example.plantapp;
 
 import java.util.Date;
 
-enum Gender {Masc, Fem, Dontsay}
+enum Gender {Masc, Fem, Dontsay, MALE, FEMALE}
 
 public class User {
 
