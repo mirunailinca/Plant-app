@@ -36,7 +36,7 @@ public class FirebaseService {
         if(review == null || review.getId() != null){
             return;
         }
-        String id = reference.child("Reviews").push().getKey(); // Salvează în nodul "Reviews"
+        String id = reference.child("Reviews").push().getKey();
         review.setId(id);
 
         reference.child("Reviews").child(review.getId()).setValue(review);
@@ -59,7 +59,7 @@ public class FirebaseService {
     }
 
     public void addReviewListener(Callback<List<Review>> callback){
-        reference.child("Reviews").addValueEventListener(new ValueEventListener() { // Ascultă doar nodul "Reviews"
+        reference.child("Reviews").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Review> reviews = new ArrayList<>();
@@ -85,7 +85,7 @@ public class FirebaseService {
         if(question == null || question.getId() != null){
             return;
         }
-        String id = reference.child("Questions").push().getKey(); // Salvează în nodul "Questions"
+        String id = reference.child("Questions").push().getKey();
         question.setId(id);
 
         reference.child("Questions").child(question.getId()).setValue(question);
@@ -108,7 +108,7 @@ public class FirebaseService {
     }
 
     public void addListenerQuestion(Callback<List<Question>> callback){
-        reference.child("Questions").addValueEventListener(new ValueEventListener() { // Ascultă doar nodul "Questions"
+        reference.child("Questions").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Question> questions = new ArrayList<>();
