@@ -24,8 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button btnSignIn = findViewById(R.id.btnSignIn);
-        Button btnSignUp = findViewById(R.id.btnSignUp);
+        Button btnSignUp = findViewById(R.id.btnSignUp);   
         Button btnInfo = findViewById(R.id.btnInfo);
+        Button btnGoToReviews = findViewById(R.id.btnGoToReviews);
 
         btnSignIn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -48,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnGoToReviews.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent revIntent = new Intent(MainActivity.this, ReviewActivity.class);
+                startActivity(revIntent);
+            }
+        });
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

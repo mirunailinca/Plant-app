@@ -3,7 +3,6 @@ package com.example.plantapp;
 import java.io.Serializable;
 
 public class Plant implements Serializable {
-
     private String name;
     private String species;
     private String imageUrl;
@@ -56,6 +55,7 @@ public class Plant implements Serializable {
     public void setLastWateredDate(String lastWateredDate) {
         this.lastWateredDate = lastWateredDate;
     }
+
 
     @Override
     public String toString() {
