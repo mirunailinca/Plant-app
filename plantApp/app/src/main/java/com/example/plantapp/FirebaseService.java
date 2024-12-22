@@ -36,10 +36,10 @@ public class FirebaseService {
         if(review == null || review.getId() != null){
             return;
         }
-        String id = reference.push().getKey();
+        String id = reference.child("Reviews").push().getKey(); // Salvează în nodul "Reviews"
         review.setId(id);
 
-        reference.child(review.getId()).setValue(review);
+        reference.child("Reviews").child(review.getId()).setValue(review);
     }
 
     public void update(Review review){
@@ -47,7 +47,7 @@ public class FirebaseService {
             return;
         }
 
-        reference.child(review.getId()).setValue(review);
+        reference.child("Reviews").child(review.getId()).setValue(review);
     }
 
     public void delete(Review review){
@@ -55,27 +55,26 @@ public class FirebaseService {
             return;
         }
 
-        reference.child(review.getId()).removeValue();
+        reference.child("Reviews").child(review.getId()).removeValue();
     }
 
     public void addReviewListener(Callback<List<Review>> callback){
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.child("Reviews").addValueEventListener(new ValueEventListener() { // Ascultă doar nodul "Reviews"
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Review> reviews = new ArrayList<>();
-                for(DataSnapshot data : snapshot.getChildren()){
+                for (DataSnapshot data : snapshot.getChildren()) {
                     Review review = data.getValue(Review.class);
-                    if(review!=null){
+                    if (review != null) {
                         reviews.add(review);
                     }
                 }
-
                 callback.runOnUI(reviews);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("firebase","Review indisponibil!");
+                Log.e("firebase","Eroare la accesarea review-urilor!");
             }
         });
     }
@@ -86,10 +85,10 @@ public class FirebaseService {
         if(question == null || question.getId() != null){
             return;
         }
-        String id = reference.push().getKey();
+        String id = reference.child("Questions").push().getKey(); // Salvează în nodul "Questions"
         question.setId(id);
 
-        reference.child(question.getId()).setValue(question);
+        reference.child("Questions").child(question.getId()).setValue(question);
     }
 
     public void updateQuestion(Question question){
@@ -97,7 +96,7 @@ public class FirebaseService {
             return;
         }
 
-        reference.child(question.getId()).setValue(question);
+        reference.child("Questions").child(question.getId()).setValue(question);
     }
 
     public void deleteQuestion(Question question){
@@ -105,27 +104,26 @@ public class FirebaseService {
             return;
         }
 
-        reference.child(question.getId()).removeValue();
+        reference.child("Questions").child(question.getId()).removeValue();
     }
 
     public void addListenerQuestion(Callback<List<Question>> callback){
-        reference.addValueEventListener(new ValueEventListener() {
+        reference.child("Questions").addValueEventListener(new ValueEventListener() { // Ascultă doar nodul "Questions"
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Question> questions = new ArrayList<>();
-                for(DataSnapshot data : snapshot.getChildren()){
+                for (DataSnapshot data : snapshot.getChildren()) {
                     Question question = data.getValue(Question.class);
-                    if(question!=null){
+                    if (question != null) {
                         questions.add(question);
                     }
                 }
-
                 callback.runOnUI(questions);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("firebase","Review indisponibil!");
+                Log.e("firebase","Eroare la accesarea întrebărilor!");
             }
         });
     }

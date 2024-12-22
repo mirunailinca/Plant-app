@@ -9,4 +9,11 @@
     <item
         android:id="@+id/action_profile"
         android:title="Profile" />
+    <item
+        android:id="@+id/action_savedb"
+        android:title="Save to database"/>
+    <item
+        android:id="@+id/action_load"
+        android:title="Load from database"/>
+
 </menu>

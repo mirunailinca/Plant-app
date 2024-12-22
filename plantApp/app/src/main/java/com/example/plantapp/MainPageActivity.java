@@ -47,27 +47,11 @@ public class MainPageActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fabAdd = findViewById(R.id.fabAdd);
-
-        fabAdd.setOnClickListener(v -> {
-            Intent intent =new Intent(getApplicationContext(),AddPlantActivity.class);
-            launcher.launch(intent);
-        });
 
         lvPlants = findViewById(R.id.lvPlants);
+        initComponente();
         PlantDB instance = PlantDB.getInstance(getApplicationContext());
 
-        FloatingActionButton btnSaveToDB = findViewById(R.id.fabSaveToDB);
-
-        btnSaveToDB.setOnClickListener(v->{
-            for(Plant plant : plants){
-
-                instance.getPlantDAO().deletePlant(plant);
-                instance.getPlantDAO().insertPlant(plant);
-
-            }
-            Toast.makeText(this, String.valueOf(instance.getPlantDAO().getCountPlants()), Toast.LENGTH_SHORT).show();
-        });
 
         lvPlants.setOnItemClickListener((adapterView, view, position,l) -> {
             this.position = position;
@@ -119,7 +103,6 @@ public class MainPageActivity extends AppCompatActivity {
 
 
         //server
-        initComponente();
         plants.add(new Plant("ZZ plant","Verde",8,"4"));
         incarcarePlante();
 
@@ -183,7 +166,26 @@ public class MainPageActivity extends AppCompatActivity {
         } else if (id == R.id.action_profile) {
             Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
             return true;
-        } else {
+        } else if (id == R.id.action_savedb) {
+        PlantDB instance = PlantDB.getInstance(getApplicationContext());
+        for(Plant plant : plants){
+            if(!plants.isEmpty()) {
+                instance.getPlantDAO().deletePlant(plant);
+                instance.getPlantDAO().insertPlant(plant);
+            }
+        }
+        Toast.makeText(this, String.valueOf(instance.getPlantDAO().getCountPlants()), Toast.LENGTH_SHORT).show();
+        return true;
+    } else if (id == R.id.action_load) {
+        PlantDB instance = PlantDB.getInstance(getApplicationContext());
+        plants.clear();
+        plants.addAll(instance.getPlantDAO().getAllPlants());
+        PlantAdapter adapter = (PlantAdapter) lvPlants.getAdapter();
+        adapter.notifyDataSetChanged();
+        return true;
+
+    }else
+        {
             return super.onOptionsItemSelected(item);
         }
     }
