@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnSignUp = findViewById(R.id.btnSignUp);   
         Button btnInfo = findViewById(R.id.btnInfo);
         Button btnGoToReviews = findViewById(R.id.btnGoToReviews);
+        Button btnGoToQuestions = findViewById(R.id.btnGoToQuestions);
 
         btnSignIn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -53,6 +54,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v){
                 Intent revIntent = new Intent(MainActivity.this, ReviewActivity.class);
                 startActivity(revIntent);
+            }
+        });
+
+        btnGoToQuestions.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent questIntent = new Intent(MainActivity.this, QuestionActivity.class);
+                startActivity(questIntent);
             }
         });
 

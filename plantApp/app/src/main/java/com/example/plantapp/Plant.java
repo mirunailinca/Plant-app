@@ -1,8 +1,16 @@
 package com.example.plantapp;
 
 import java.io.Serializable;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
+
+@Entity(tableName = "plants")
 public class Plant implements Serializable {
+    @NotNull
+    @PrimaryKey
     private String name;
     private String species;
     private String imageUrl;

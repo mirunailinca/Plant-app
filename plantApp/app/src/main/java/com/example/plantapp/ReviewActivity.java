@@ -64,6 +64,7 @@ public class ReviewActivity extends AppCompatActivity {
         btnDelete = findViewById(R.id.btnDelete);
         btnSave = findViewById(R.id.btnSave);
         lvReviews = findViewById(R.id.lvReviews);
+
         ArrayAdapter<Review> adapter = new ArrayAdapter<>(getApplicationContext(), android.R.layout.simple_list_item_1,listaReviews);
         lvReviews.setAdapter(adapter);
 

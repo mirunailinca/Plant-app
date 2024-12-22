@@ -73,6 +73,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
+        <Button
+            android:id="@+id/btnGoToQuestions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Go to questions"
+            android:backgroundTint="@color/dark_green"
+            android:textColor="@color/sage_green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
 
     </LinearLayout>
 </ScrollView>

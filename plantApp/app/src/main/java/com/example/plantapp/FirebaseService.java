@@ -80,4 +80,54 @@ public class FirebaseService {
         });
     }
 
+    //////////////
+
+    public void insertQuestion(Question question){
+        if(question == null || question.getId() != null){
+            return;
+        }
+        String id = reference.push().getKey();
+        question.setId(id);
+
+        reference.child(question.getId()).setValue(question);
+    }
+
+    public void updateQuestion(Question question){
+        if(question == null || question.getId() == null){
+            return;
+        }
+
+        reference.child(question.getId()).setValue(question);
+    }
+
+    public void deleteQuestion(Question question){
+        if(question == null || question.getId() == null){
+            return;
+        }
+
+        reference.child(question.getId()).removeValue();
+    }
+
+    public void addListenerQuestion(Callback<List<Question>> callback){
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Question> questions = new ArrayList<>();
+                for(DataSnapshot data : snapshot.getChildren()){
+                    Question question = data.getValue(Question.class);
+                    if(question!=null){
+                        questions.add(question);
+                    }
+                }
+
+                callback.runOnUI(questions);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e("firebase","Review indisponibil!");
+            }
+        });
+    }
+
 }

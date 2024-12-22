@@ -55,6 +55,19 @@ public class MainPageActivity extends AppCompatActivity {
         });
 
         lvPlants = findViewById(R.id.lvPlants);
+        PlantDB instance = PlantDB.getInstance(getApplicationContext());
+
+        FloatingActionButton btnSaveToDB = findViewById(R.id.fabSaveToDB);
+
+        btnSaveToDB.setOnClickListener(v->{
+            for(Plant plant : plants){
+
+                instance.getPlantDAO().deletePlant(plant);
+                instance.getPlantDAO().insertPlant(plant);
+
+            }
+            Toast.makeText(this, String.valueOf(instance.getPlantDAO().getCountPlants()), Toast.LENGTH_SHORT).show();
+        });
 
         lvPlants.setOnItemClickListener((adapterView, view, position,l) -> {
             this.position = position;
